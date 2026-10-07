@@ -1,0 +1,134 @@
+/* ==========================================================================
+   1. MOBILE FIRST DEFAULT (Dưới 772px - Lưới 1 cột, gap 10px)[cite: 11]
+   ========================================================================== */
+body {
+  background-color: #f4f4f4;
+  color: #333333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+main > p {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Lưới 1 cột với khoảng cách 10px (Yêu cầu 4a)[cite: 11] */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 2px solid #cccccc;
+  padding: 15px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Đảm bảo hình ảnh co giãn đều và vừa vặn khung */
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+/* ==========================================================================
+   2. TABLET VIEW (Yêu cầu 5: Kích hoạt ở 772px)[cite: 11]
+   ========================================================================== */
+@media screen and (min-width: 772px) {
+  /* Lưới 2 cột (Yêu cầu 5a)[cite: 11] */
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Đặt bán kính đường viền để tạo hình tròn (Yêu cầu 5b)[cite: 11] */
+  .card img {
+    border-radius: 50%;
+  }
+
+  /* Thẻ cuối cùng chiếm cả hai cột (Yêu cầu 5c)[cite: 11] */
+  .card:last-child {
+    grid-column: span 2;
+  }
+}
+
+
+/* ==========================================================================
+   3. DESKTOP VIEW (Yêu cầu 6: Kích hoạt ở 992px)[cite: 11]
+   ========================================================================== */
+@media screen and (min-width: 992px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: dense; /* Tự động lấp đầy khoảng trống dư thừa trong lưới */
+  }
+
+  /* Thẻ thứ 3 (và các thẻ 3n) chiếm hai cột (Yêu cầu 6a)[cite: 11] */
+  .card:nth-child(3n) {
+    grid-column: span 2;
+  }
+
+  /* Xóa bán kính đường viền khỏi tất cả các hình (Yêu cầu 6b)[cite: 11] */
+  .card img {
+    border-radius: 0;
+    max-height: none; /* Không giới hạn chiều cao tối đa (Yêu cầu 6bi)[cite: 11] */
+  }
+
+  /* Reset lại thẻ cuối cùng không bị dính style của Tablet */
+  .card:last-child {
+    grid-column: auto;
+  }
+}
+
+
+/* ==========================================================================
+   4. REDUCE MOTION (Yêu cầu 7: Tắt chuyển động/cuộn mượt)[cite: 11]
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   5. DARK MODE (Yêu cầu 8 & 9: Chế độ tối)[cite: 11]
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  /* Nền thẻ màu tối (Yêu cầu 8a)[cite: 11] */
+  .card {
+    background-color: #1e1e1e;
+    border-color: #000000; /* Màu viền đen (Yêu cầu 8c)[cite: 11] */
+  }
+
+  /* Chữ dưới hình màu vàng nhạt (Yêu cầu 8b)[cite: 11] */
+  .card p {
+    color: #ffeb3b;
+  }
+}
